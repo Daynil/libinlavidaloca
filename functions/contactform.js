@@ -1,6 +1,7 @@
 export async function onRequest(context) {
-  console.log('ctx', context)
-  const formData = new URLSearchParams(context.request.body);
+  console.log('ctx', context);
+  console.log('ctx json', await context.request.json());
+  const formData = new URLSearchParams(await context.request.json());
   const name = formData.get("name");
   const email = formData.get("email");
   const message = formData.get("message");
@@ -29,14 +30,18 @@ export async function onRequest(context) {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${context.env.sendgridkey}`,
-        "Content-Type": "Content-Type: application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data)
     });
-    console.log('res status', res.status + " " + res.statusText);
-    console.log('res', await res.json());
-    console.log("Successfully sent email: ", name, email, message);
-    return new Response("Success");
+    if (res.ok) {
+      console.log("Successfully sent email: ", name, email, message);
+      return new Response("Success");
+    } else {
+      console.log("Error sending email: ", name, email, message, res.status + " " + res.statusText);
+      console.log('res', await res.json())
+      return new Response("Error", { status: 500 });
+    }
   } catch (e) {
     console.log("Error sending email: ", name, email, message, e);
     return new Response("Error", { status: 500 });
