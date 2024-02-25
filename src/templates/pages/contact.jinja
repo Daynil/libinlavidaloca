@@ -79,10 +79,15 @@ function formComponent() {
         method: "POST",
         body: formData
       })
-        .then(() => {
-          this.loading = false;
-          this.success = true;
-          this.$refs.form.reset();
+        .then((res) => {
+          if (res.ok) {
+            this.loading = false;
+            this.success = true;
+            this.$refs.form.reset();
+          } else {
+            this.loading = false;
+            this.error = true;
+          }
         })
         .catch((error) => {
           this.loading = false;

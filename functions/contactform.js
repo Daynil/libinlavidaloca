@@ -8,13 +8,17 @@ export async function onRequest(context) {
     personalizations: [
       {
         to: [{ email: 'omegasol11@gmail.com' }],
+      },
+      {
         from: {
-          email: email
-        },
-        replyTo: {
           email: email
         }
       },
+      {
+        replyTo: {
+          email: email
+        }
+      }
     ],
     subject: 'libinlavidaloca - Contact Form Message',
     content: [
