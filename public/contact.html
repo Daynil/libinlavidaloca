@@ -405,7 +405,7 @@ function formComponent() {
       const formData = new FormData(this.$refs.form);
 
       // If we want to test functionality without a submission
-      setTimeout(() => {
+      /*setTimeout(() => {
         this.loading = false;
         this.success = true;
         this.$refs.form.reset();
@@ -416,9 +416,9 @@ function formComponent() {
         console.log(converted.get("name"))
         console.log(converted.get("email"))
         console.log(converted.get("message"))
-      }, 2000);
+      }, 2000);*/
       
-      /*fetch("/contact", {
+      fetch("/contactform", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData).toString()
@@ -431,7 +431,7 @@ function formComponent() {
         .catch((error) => {
           this.loading = false;
           this.error = true;
-        });*/
+        });
 
     }
   }
