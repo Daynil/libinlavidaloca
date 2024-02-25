@@ -16,13 +16,12 @@ export async function onRequest(context) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: {
+      body: JSON.stringify({
         content: `${alertsRoleTagCode}, ${sentMessage.substring(
           0,
           DISCORD_MESSAGE_MAX_LENGTH - `${alertsRoleTagCode}, ...`.length - 10
         )}...`
-
-      }
+      })
     });
     if (res.ok) {
       console.log("Successfully sent discord msg: ", name, email, message);
