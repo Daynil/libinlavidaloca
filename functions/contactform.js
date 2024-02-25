@@ -1,4 +1,5 @@
 export async function onRequest(context) {
+  console.log('ctx', context)
   const formData = new URLSearchParams(context.request.body);
   const name = formData.get("name");
   const email = formData.get("email");
@@ -32,6 +33,7 @@ export async function onRequest(context) {
       },
       body: JSON.stringify(data)
     });
+    console.log('res', res)
     console.log("Successfully sent email: ", name, email, message);
     return new Response("Success");
   } catch (e) {
