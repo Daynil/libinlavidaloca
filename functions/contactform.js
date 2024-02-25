@@ -1,7 +1,5 @@
 export async function onRequest(context) {
-  console.log('ctx', context);
   const formData = await context.request.formData();
-  console.log('ctx formdata', formData);
   const name = formData.get("name");
   const email = formData.get("email");
   const message = formData.get("message");
@@ -10,7 +8,10 @@ export async function onRequest(context) {
     personalizations: [
       {
         to: [{ email: 'omegasol11@gmail.com' }],
-        replayTo: {
+        from: {
+          email: email
+        },
+        replyTo: {
           email: email
         }
       },
