@@ -9,7 +9,7 @@ export async function onRequest(context) {
 
   // TODO send email
   try {
-    const sentMessage = `Received a contact form message from ${name}, email: ${email}: ${message}`;
+    const sentMessage = `[libinlavidaloca] Received a contact form message from ${name}, email: ${email}: ${message}`;
 
     const res = await fetch(`${context.env.DISCORD_HOOK_URL}?wait=true`, {
       method: "POST",
