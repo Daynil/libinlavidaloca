@@ -28,12 +28,13 @@ export async function onRequest(context) {
     const res = await fetch("https://api.sendgrid.com/v3/mail/send", {
       method: "POST",
       headers: {
-        "Authorization": "Bearer " + context.env.sendgridkey,
+        "Authorization": `Bearer ${context.env.sendgridkey}`,
         "Content-Type": "Content-Type: application/json",
       },
       body: JSON.stringify(data)
     });
-    console.log('res', res)
+    console.log('res status', res.status + " " + res.statusText);
+    console.log('res', await res.json());
     console.log("Successfully sent email: ", name, email, message);
     return new Response("Success");
   } catch (e) {
