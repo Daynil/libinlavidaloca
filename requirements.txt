@@ -1,0 +1,5 @@
+# python==3.11
+# Direct dependencies only
+jinja2==3.1.2
+
+# Indirect includes pydantic and python-dotenv

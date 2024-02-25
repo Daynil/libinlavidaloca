@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {% block head_base %}
+          {# use in children to extend: {{ super () }} #}
+          <script defer type="text/javascript" src='{{ base_path_reset or "" }}lib/alpinejs.min.js'></script>
+          <link rel="stylesheet" type="text/css" href='{{ base_path_reset or "" }}output.css' />
+        {% endblock head_base %}
+
+        {% block title %}{% endblock title %}
+        {% block head %}{% endblock head %}
+    </head>
+    <body hx-boost="true" class="font-sans">
+        {% block menu %}
+            {% include "components/navbar.jinja" %}
+        {% endblock menu %}
+        {% block content %}{% endblock content %}
+    </body>
+</html>

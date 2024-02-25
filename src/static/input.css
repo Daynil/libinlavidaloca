@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  /* This is where we 'name' the font for use in css (or tailwind config) */
+  font-family: 'Inter var';
+  /* This is where the font itself is loaded */
+  /* If we get a 'variable' font, all weights are in 1 file */
+  /* Built files will be in the same folder, ignore */
+  /*noinspection CssUnknownTarget*/
+  src: url('lib/InterVariable.ttf');
+}
+
+.htmx-indicator {
+  opacity: 0;
+  transition: opacity 150ms ease-in;
+}
+
+/* https://alpinejs.dev/directives/cloak */
+[x-cloak] {
+  display: none !important;
+}
+
+/* Same as .htmx-indicator but when I need to set it myself */
+.load-indicator-hidden {
+  opacity: 0;
+  transition: opacity 150ms ease-in;
+}
+
+.load-indicator {
+  opacity: 1;
+}
+
+@tailwind utilities;

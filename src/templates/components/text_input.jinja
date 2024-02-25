@@ -1,0 +1,28 @@
+{% from 'util.jinja' import attributes %}
+
+{% macro text_input(label="", type="text", id="input_id", add_class="", add_class_label="", required=false, attrs={}) %}
+
+{% set inner_input %}
+
+<input type="{{ type }}" name="{{ id }}" id="{{ id }}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6 hover:ring-primary-600 {{ add_class }}" {{ required and 'required' }} {{ attributes(attrs) }}>
+
+{% endset %}
+
+{% if label != "" %}
+
+<div>
+  <label for="{{ id }}" class="block text-sm font-semibold leading-6 text-gray-900 {{ add_class_label }}">
+    {{ label }}
+  </label>
+  <div class="mt-2">
+    {{ inner_input }}
+  </div>
+</div>
+
+{% else %}
+
+{{ inner_input }}
+
+{% endif %}
+
+{% endmacro %}

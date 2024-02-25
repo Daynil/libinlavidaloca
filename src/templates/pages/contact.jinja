@@ -1,0 +1,99 @@
+{% extends "layout.jinja" %}
+{% from "components/text_input.jinja" import text_input %}
+{% from "components/button.jinja" import button %}
+{% from "components/info_banner.jinja" import info_banner %}
+
+{% block title %}
+    <title>Libin La Vida Loca</title>
+{% endblock title %}
+
+{% block content %}
+
+<main class="mt-6 sm:mx-auto sm:w-full sm:max-w-xl">
+  <div class="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contact Me</h2>
+      <p class="mt-2 text-lg leading-8 text-gray-600">Want to request a commission or just chat? <br> Feel free to reach out!</p>
+    </div>
+    <form
+        x-data="formComponent()"
+        x-ref="form"
+        @submit.prevent="submitForm($refs)"
+        data-netlify="true"
+        method="POST" 
+        class="mx-auto mt-16 max-w-xl sm:mt-20">
+      <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+        <div class="sm:col-span-2">
+          {{ text_input(label="Name", id="name", required=True) }}
+        </div>
+        <div class="sm:col-span-2">
+          {{ text_input(label="Email address", id="email", type="email", required=True) }}
+        </div>
+        <div class="sm:col-span-2">
+          <label for="message" class="block text-sm font-semibold leading-6 text-gray-900">Message</label>
+          <div class="mt-2.5">
+            <textarea name="message" id="message" rows="4" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-primary-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6" required></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="mt-10">
+        {{ button(content="Submit", htmx_loader=false) }}
+      </div>
+      <div x-cloak x-show="success" class="mt-4">
+        {{ info_banner(alert={"type": "good", "title": "Thank you!", "message": "Your message was submitted, I'll be in touch!" }) }}
+      </div>
+      <div x-cloak x-show="error" class="mt-4">
+        {{ info_banner(alert={"type": "bad", "title": "Error", "message": "There was a problem submitting your message, please try again later!" }) }}
+      </div>
+    </form>
+  </div>
+
+</main>
+
+<script>
+
+function formComponent() {
+  return {
+    loading: false,
+    error: false,
+    success: false,
+    submitForm: function() {
+      this.loading = true;
+      const formData = new FormData(this.$refs.form);
+
+      // If we want to test functionality without a submission
+      setTimeout(() => {
+        this.loading = false;
+        this.success = true;
+        this.$refs.form.reset();
+        // To server
+        const strData = new URLSearchParams(formData).toString();
+        // Convert on server
+        const converted = new URLSearchParams(strData);
+        console.log(converted.get("name"))
+        console.log(converted.get("email"))
+        console.log(converted.get("message"))
+      }, 2000);
+      
+      /*fetch("/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString()
+      })
+        .then(() => {
+          this.loading = false;
+          this.success = true;
+          this.$refs.form.reset();
+        })
+        .catch((error) => {
+          this.loading = false;
+          this.error = true;
+        });*/
+
+    }
+  }
+};
+
+</script>
+
+{% endblock content %}

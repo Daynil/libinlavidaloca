@@ -1,0 +1,56 @@
+{% from 'util.jinja' import attributes %}
+{% from "components/spinner.jinja" import spinner %}
+{% macro button(content="Button", variant="primary", loading=false, disabled=false, htmx_loader=true, add_class="", attrs={}) %}
+{# Variant support: normal, outline, blank, unstyled, #}
+{# Color support: primary, secondary, blank, outline, red, green #}
+{# htmx_load: if set to true, leverages htmx-indicator to 
+  disable and show/hide load state, which is what we usually want.
+  If false, if we have a fully front end component, uses a frontend "loading" attribute supplied by alpine state called "loading" #}
+
+{% set class="relative flex items-center justify-center w-full rounded-xl py-[10px] px-5 font-semibold shadow-sm transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50 disabled:cursor-not-allowed" %}
+
+{% set variant_text = "" %}
+{% set variant_style = "" %}
+
+{% if variant == 'primary' %}
+  {% set variant_text = "text-white" %}
+  {% set variant_style = "bg-primary-600 hover:bg-primary-500 disabled:bg-primary-400 font-semibold" %}
+{% elif variant == 'secondary' %}
+  {% set variant_text = "text-primary-900 disabled:text-gray-500" %}
+  {% set variant_style = "bg-primary-200 hover:bg-primary-300 disabled:bg-gray-200" %}
+{% elif variant == 'outline' %}
+  {% set variant_text = "text-gray-700 disabled:text-gray-400" %}
+  {% set variant_style = "border border-gray-300 bg-white hover:bg-gray-100 disabled:border-gray-100 font-semibold" %}
+{% elif variant == 'blank' %}
+  {% set variant_text = "text-gray-600 disabled:text-gray-400" %}
+  {% set variant_style = "border border-none shadow-none bg-transparent hover:text-gray-900 hover:bg-gray-200 disabled:border-gray-100 font-semibold" %}
+{% endif %}
+
+<button 
+    type="submit" 
+    class="{{ class if not variant == 'unstyled' else '' }} {{ variant_style }} {{ variant_text }} {{ add_class }}"
+    {{ attributes(attrs) }}
+    {{ 'disabled' if loading or disabled else '' }}
+    :disabled="loading"
+    >
+  <span class="ml-[25px]">{{ content }}</span>
+  
+  {% if htmx_loader %}
+
+    <span class="htmx-indicator ml-[5px]" role="status">
+      {{ spinner(add_class="m-auto h-5 w-5") }}
+      <span class="sr-only">Loading...</span>
+    </span>
+
+  {% else %}
+
+    <span :class="loading ? 'load-indicator' : 'load-indicator-hidden'" class="ml-[5px] {{ 'load-indicator' if loading else 'load-indicator-hidden' }}" role="status">
+      {{ spinner(add_class="m-auto h-5 w-5 {{ variant_text }}") }}
+      <span class="sr-only">Loading...</span>
+    </span>
+
+  {% endif %}
+
+</button>
+
+{% endmacro %}
