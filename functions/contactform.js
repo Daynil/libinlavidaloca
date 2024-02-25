@@ -11,13 +11,12 @@ export async function onRequest(context) {
   try {
     const sentMessage = `Received a contact form message from ${name}, email: ${email}: ${message}`;
 
-    const res = await fetch(context.env.DISCORD_HOOK_URL, {
+    const res = await fetch(`${context.env.DISCORD_HOOK_URL}?wait=true`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: {
-        queryParams: { wait: true },
         content: `${alertsRoleTagCode}, ${sentMessage.substring(
           0,
           DISCORD_MESSAGE_MAX_LENGTH - `${alertsRoleTagCode}, ...`.length - 10
