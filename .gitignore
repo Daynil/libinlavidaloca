@@ -131,4 +131,5 @@ app/pocketbase/generated_types.py
 # Built files (pocketbase/pocketbase is the linux build)
 #app/pocketbase/pocketbase
 
-public/
+# Build dir included for cloudflare pages process
+# public/
