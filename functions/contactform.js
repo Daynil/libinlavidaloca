@@ -1,7 +1,7 @@
 export async function onRequest(context) {
   console.log('ctx', context);
-  console.log('ctx json', await context.request.json());
-  const formData = new URLSearchParams(await context.request.json());
+  const formData = await context.request.formData();
+  console.log('ctx formdata', formData);
   const name = formData.get("name");
   const email = formData.get("email");
   const message = formData.get("message");
