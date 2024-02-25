@@ -9,24 +9,10 @@ export async function onRequest(context) {
       {
         to: [{ email: 'omegasol11@gmail.com' }],
       },
-      {
-        from: {
-          email: email
-        }
-      },
-      {
-        replyTo: {
-          email: email
-        }
-      }
     ],
+    from: { email: email },
     subject: 'libinlavidaloca - Contact Form Message',
-    content: [
-      {
-        type: 'text/html',
-        value: `Received a contact form message from ${name}, email: ${email}:<br><br>${message}`
-      }
-    ],
+    content: [{ type: 'text/html', value: `Received a contact form message from ${name}, email: ${email}:<br><br>${message}` }],
   };
 
   // TODO send email
