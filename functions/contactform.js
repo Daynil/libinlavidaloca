@@ -13,7 +13,7 @@ export async function onRequest(context) {
 
         const discordMessages = [];
 
-        const piecesNeeded = Math.ceil(totalMessageLength / DISCORD_MESSAGE_MAX_LENGTH);
+        let piecesNeeded = Math.ceil(totalMessageLength / DISCORD_MESSAGE_MAX_LENGTH);
         // Just in case...
         if (piecesNeeded > 10) {
             piecesNeeded = 10;
