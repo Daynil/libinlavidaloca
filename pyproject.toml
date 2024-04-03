@@ -1,2 +1,2 @@
 [tool.ruff]
-indent-width = 2
+indent-width = 4

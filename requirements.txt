@@ -2,4 +2,4 @@
 # Direct dependencies only
 jinja2==3.1.2
 
-# Indirect includes pydantic and python-dotenv
+# Indirect includes (none relevant here)
