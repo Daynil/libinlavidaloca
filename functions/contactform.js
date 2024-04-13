@@ -19,8 +19,8 @@ export async function onRequest(context) {
             piecesNeeded = 10;
         }
         for (let i = 0; i < piecesNeeded; i++) {
-            const startIdx = i * (DISCORD_MESSAGE_MAX_LENGTH - 10);
-            const endIdx = (i + 1) * (DISCORD_MESSAGE_MAX_LENGTH - 10);
+            const startIdx = i * (DISCORD_MESSAGE_MAX_LENGTH - 30);
+            const endIdx = (i + 1) * (DISCORD_MESSAGE_MAX_LENGTH - 30);
             discordMessages.push(sentMessage.substring(startIdx, endIdx));
         }
 
@@ -35,7 +35,7 @@ export async function onRequest(context) {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    content: msg
+                    content: `${alertsRoleTagCode} ${msg}`
                 })
             });
 
