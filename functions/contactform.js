@@ -27,7 +27,7 @@ export async function onRequest(context) {
         console.log("discord messages", discordMessages)
 
         let errors = 0;
-        for (const msg in discordMessages) {
+        for (const msg of discordMessages) {
             console.log("individual msg", msg)
             const res = await fetch(`${context.env.DISCORD_HOOK_URL}?wait=true`, {
                 method: "POST",
