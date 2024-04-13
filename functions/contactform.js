@@ -24,11 +24,8 @@ export async function onRequest(context) {
             discordMessages.push(sentMessage.substring(startIdx, endIdx));
         }
 
-        console.log("discord messages", discordMessages)
-
         let errors = 0;
         for await (const msg of discordMessages) {
-            console.log("individual msg", msg)
             const res = await fetch(`${context.env.DISCORD_HOOK_URL}?wait=true`, {
                 method: "POST",
                 headers: {
